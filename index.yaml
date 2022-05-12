@@ -3,6 +3,16 @@ entries:
   hostpage:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2022-05-12T20:38:23.648349012Z"
+    description: A Helm chart for Kubernetes
+    digest: cb132bdb583a14f899de3a452c0d552f15c2f2491eed600d3b422dc3d4d2e7c4
+    name: hostpage
+    type: application
+    urls:
+    - https://github.com/GamesHub-Project/helm-charts/releases/download/hostpage-0.1.1/hostpage-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-05-12T20:13:54.394731513Z"
     description: A Helm chart for Kubernetes
     digest: 4000585596b9e87ace9a1916111e4bc69d7c3590c69b389c5a19be9059b99970
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/GamesHub-Project/helm-charts/releases/download/hostpage-0.1.0/hostpage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-12T20:13:54.394747913Z"
+generated: "2022-05-12T20:38:23.648367212Z"
