@@ -1,0 +1,132 @@
+---
+# This is a basic workflow to help you get started with Actions
+
+name: CICD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push
+  push:
+    branches-ignore: [main]
+  # or on pull requests with tagetbranch main
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more 
+# jobs that can run sequentially or in parallel
+jobs:
+  # here starts the node_build_job
+  node:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed 
+    # as part of the job
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE, 
+      # so the job can access it
+      - uses: actions/checkout@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.1
+        #it is safer to specify the node-version that should be used
+        with: 
+          # Version Spec of the version to use. 
+          # Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: 12.x
+      #if we define a testscript in the package.json this line is not needed
+      #please use the block below instead
+      - name: install node dependencies
+        run: npm install
+     
+
+      #use this block if there is a testscript in package.json
+      
+      #- name: install node depencencies and run testscript
+      #  run: |
+      #    npm install
+      #    npm test
+
+# This job executes several linters on changed files based on languages used 
+# in your code base whenever you push a code or open a pull request.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/github/super-linter
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get proper list of changed files 
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          #should be false so only edited or new files are linted
+          VALIDATE_ALL_CODEBASE: false 
+          #disable linter "standard" (this is intendend)
+          VALIDATE_JAVASCRIPT_STANDARD: false 
+          VALIDATE_TYPESCRIPT_STANDARD: false 
+          DEFAULT_BRANCH: main
+          #needed to list status of different linters
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+#here starts the docker_build and push to registry job
+  dockerize:
+    #this job should not start on pushes but linting and node job 
+    #probably should
+    if: github.event_name!='push'
+    needs: [build_node, linting]    
+    runs-on: ubuntu-latest
+    #set environmentvariables for docker job
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+    #set permissions for GITHUB_TOKEN for this job
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          #use env to set the image
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tag-sha: true
+          tag-edge: false
+          tag-latest: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          #use GITHUB_TOKEN with above set permissions
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          file: ./Dockerfile
+
+      - name: Push image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          file: ./Dockerfile
