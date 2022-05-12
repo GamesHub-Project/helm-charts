@@ -1,3 +1,9 @@
+# [helm-charts](https://github.com/GamesHub-Project/helm-charts)
+
+# GamesHub Project Kubernetes Helm Charts
+
+The code is provided as-is with no warranties.
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.  Please refer to
@@ -18,3 +24,8 @@ To install the a specific chart:
 To uninstall the chart:
 
     helm delete <chart-name>
+    
+    
+## License
+
+tbd
