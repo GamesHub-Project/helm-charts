@@ -24,6 +24,16 @@ entries:
   frontend-steam:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2022-05-16T19:23:53.291623733Z"
+    description: Deploys the microforontend for the steam integration
+    digest: d76e6bc354ce4c7c596a2223398c75859855589ebef4514f07efa702a161db76
+    name: frontend-steam
+    type: application
+    urls:
+    - https://github.com/GamesHub-Project/helm-charts/releases/download/frontend-steam-0.1.5/frontend-steam-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-05-16T18:37:09.82864891Z"
     description: Deploys the microforontend for the steam integration
     digest: 68dfa58bc5c5dc6c5af2fb05023610d3beaaf42dc4feebd9f04426972f19815f
@@ -133,4 +143,4 @@ entries:
     urls:
     - https://github.com/GamesHub-Project/helm-charts/releases/download/hostpage-0.1.0/hostpage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-16T19:21:10.069070162Z"
+generated: "2022-05-16T19:23:53.291667434Z"
