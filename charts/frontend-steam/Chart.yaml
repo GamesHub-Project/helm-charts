@@ -5,6 +5,6 @@ description: Deploys the microforontend for the steam integration
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
-version: 0.1.1
+version: 0.1.2
 
 appVersion: 0.1.0
