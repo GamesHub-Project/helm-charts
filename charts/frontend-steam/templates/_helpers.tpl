@@ -49,14 +49,3 @@ Selector labels
 app.kubernetes.io/name: {{ include "frontend-steam.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "frontend-steam.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "frontend-steam.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
