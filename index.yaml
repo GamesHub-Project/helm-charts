@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  backend-steam:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-05-16T18:47:32.292347901Z"
+    description: Deploys the microservice backend for the steam integration
+    digest: 64d39fcc2eb1094a061551de1d952b2ae47651dc66c7d8d2db9719eb6706d4f2
+    name: backend-steam
+    type: application
+    urls:
+    - https://github.com/GamesHub-Project/helm-charts/releases/download/backend-steam-0.1.0/backend-steam-0.1.0.tgz
+    version: 0.1.0
   frontend-steam:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -112,4 +123,4 @@ entries:
     urls:
     - https://github.com/GamesHub-Project/helm-charts/releases/download/hostpage-0.1.0/hostpage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-16T18:37:09.82868571Z"
+generated: "2022-05-16T18:47:32.292370101Z"
