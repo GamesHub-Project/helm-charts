@@ -21,7 +21,7 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 env:
-  API: /backend/steam
+  API_URL: "/backend/steam/api"
 
 securityContext: {}
   # capabilities:
