@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: replace
+  namespace: frontend
+spec:
+  stripPrefix:
+    forceSlash: true
+    prefixes:
+    - /frontend/steam

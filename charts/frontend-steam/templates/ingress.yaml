@@ -20,6 +20,7 @@ metadata:
     {{- include "frontend-steam.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: frontend-replace@kubernetescrd
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

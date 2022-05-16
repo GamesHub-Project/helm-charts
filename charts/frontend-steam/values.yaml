@@ -43,8 +43,8 @@ ingress:
   hosts:
     - host: vm35.fkc.hft-stuttgart.de
       paths:
-      - path: "/frontend/steam"
-        pathType: ImplementationSpecific
+      - path: "/frontend/steam/"
+        pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
